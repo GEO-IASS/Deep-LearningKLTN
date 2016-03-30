@@ -1,18 +1,22 @@
-# Module for input 
+"""
+ Specify the path to file d
+"""
 import os, sys
 
 # Path to your installed caffe 
 CAFFE_ROOT = '/media/yscope/DATA1/Y/DeepLearningResearch/caffe/'
+# Current Path 
+CURRENT_DIR = './'
 # Path to custom trained model 
 CUSTOM_MODEL = ''
 # Path to image mean 
 IMAGE_MEAN = CAFFE_ROOT + '/data/ilsvrc12/imagenet_mean.binaryproto'
 # Path to custom model definition 
 MODEL_DEF = ''
-# Path to solver 
-SOLVER = ''
+# Path to solver  
+SOLVER = CAFFE_ROOT + 'models/bvlc_alexnet/solver.prototxt'
 # 
-sys.path.insert(0, caffe_root + 'python')
+sys.path.insert(0, CAFFE_ROOT + 'python')
 import caffe
 # Load trained models for classification 
 def load_trained_model(model_number): 
@@ -66,18 +70,19 @@ def load_trained_model(model_number):
   return (model_trained, model_prototxt)
 
 # Load custom models for classification 
-def load_custom_model:
+def load_custom_model():
   model_trained = CUSTOM_MODEL_FOLDER + 'custom_model.caffemodel'
   model_prototxt = CUSTOM_MODEL_FOLDER + 'custom_deploy.prototxt'
   return (model_trained, model_prototxt)
 
 # Load imagenet labels
-def load_imagenet_labels:
+def load_imagenet_labels():
   imagenet_labels = CAFFE_ROOT + 'data/ilsvrc12/synset_words.txt'
-  while open(imagenet_labels) as f:
+  with open(imagenet_labels) as f:
     labels = f.readlines()
   return labels
 # 
 # image for training 
-def load_solver:
-  return caffe.get_solver('SOLVER')
+# Get slover for training 
+def load_solver():
+  return caffe.get_solver(SOLVER)
